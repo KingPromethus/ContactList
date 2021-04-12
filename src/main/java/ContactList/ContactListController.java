@@ -1,6 +1,6 @@
 package ContactList;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,12 +61,13 @@ class ContactListController {
 
     @GetMapping("contacts/call-list")
     List<Contact> callList(){
-        Example<Contact> homeType = Example.of(Contact.from(null));
-        repository.findAll()
-        return repository.findAllById();
+        List<Contact> homePhones = new ArrayList<Contact>();
+        List<Contact> all = repository.findAll();
+        for (Contact contact : all) {
+            if(contact.getPhoneType() == "home"){
+                homePhones.add(contact);
+            }
+        }
+        return homePhones;
     }
-
-
-
-
 }
