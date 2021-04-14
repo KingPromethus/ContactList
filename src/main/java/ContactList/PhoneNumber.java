@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "PhoneNumber")
 public class PhoneNumber {
-    public @Id @GeneratedValue @JsonIgnore long id;
-    public String number;
-    public String type;
+    private @Id @GeneratedValue @JsonIgnore long id;
+    private String number;
+    private String type;
 
     public PhoneNumber() {}
 

@@ -52,15 +52,17 @@ class ContactListController {
         repository.deleteById(id);
     }
 
-//    @GetMapping("contacts/call-list")
-//    List<Contact> callList(){
-//        List<Contact> homePhones = new ArrayList<Contact>();
-//        List<Contact> all = repository.findAll();
-//        for (Contact contact : all) {
-//            if(contact.getPhoneType() == "home"){
-//                homePhones.add(contact);
-//            }
-//        }
-//        return homePhones;
-//    }
+    @GetMapping("contacts/call-list")
+    List<ContactListVersion> callList(){
+        List<ContactListVersion> homePhones = new ArrayList<ContactListVersion>();
+        List<Contact> all = repository.findAll();
+        for (Contact contact : all) {
+            for(PhoneNumber phone : contact.getPhone()){
+                if(phone.getType().equals("home")) {
+                    homePhones.add(new ContactListVersion(contact));
+                }
+            }
+        }
+        return homePhones;
+    }
 }

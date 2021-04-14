@@ -30,7 +30,7 @@ class LoadDatabase {
 //        testMap.put("type", "mobile");
         List<PhoneNumber> testPhone = new ArrayList<PhoneNumber>();
         testPhone.add(new PhoneNumber("7608779542", "mobile"));
-        testPhone.add(new PhoneNumber("700200300", "home"));
+//        testPhone.add(new PhoneNumber("700200300", "home"));
         return args -> {
             log.info("Preloading " + repository.save(new Contact(testName, testAddress, testPhone, "mb_charette@hotmail.com")));
         };

@@ -1,5 +1,6 @@
 package ContactList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 
@@ -8,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.*;
 
-@Entity
-public class Contact implements Serializable {
+@Entity(name = "Contact")
+public class Contact {
     private @Id @GeneratedValue Long id;
     @ElementCollection
     private Map<String, String> name;
@@ -66,5 +67,36 @@ public class Contact implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+}
+
+class ContactListVersion {
+    private Map<String, String> name;
+    private String number;
+
+    public ContactListVersion() {}
+
+    public ContactListVersion(Contact contact){
+        this.name = contact.getName();
+        for(PhoneNumber phone : contact.getPhone()){
+            if(phone.getType().equals("home"))
+                this.number = phone.getNumber();
+        }
+    }
+
+    public Map<String, String> getName() {
+        return name;
+    }
+
+    public void setName(Map<String, String> name) {
+        this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
