@@ -16,7 +16,6 @@ public class Contact implements Serializable {
     @ElementCollection
     private Map<String, String> address;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "phone_id")
     private List<PhoneNumber> phone;
     private String email;
 

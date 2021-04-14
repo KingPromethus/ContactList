@@ -1,14 +1,16 @@
 package ContactList;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 public class PhoneNumber {
-    public @Id @GeneratedValue long id;
+    public @Id @GeneratedValue @JsonIgnore long id;
     public String number;
     public String type;
-    @ManyToOne
-    private Contact contact;
+
+    public PhoneNumber() {}
 
     public PhoneNumber(String phoneNumber, String phoneType) {
         this.number = phoneNumber;
@@ -29,13 +31,5 @@ public class PhoneNumber {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
     }
 }
