@@ -1,140 +1,64 @@
 package ContactList;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.*;
 
 @Entity
-public class Contact {
+public class Contact implements Serializable {
     private @Id @GeneratedValue Long id;
-//    private Name fullName;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String street;
-    private String city;
-    private String state;
-    private String zip;
+    @ElementCollection
+    private Map<String, String> name;
+    @ElementCollection
+    private Map<String, String> address;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "phone_id")
+    private List<PhoneNumber> phone;
     private String email;
-//    private ArrayList<PhoneNumber> phoneNumbers;
-    private String phoneNumber;
-    private String phoneType;
 
     Contact() {}
 
-    public Contact(String firstName, String middleName, String lastName, String street, String city, String state,
-             String zip, String phoneNumber, String phoneType, String email){
-//        this.fullName.setFirstName(firstName);
-//        this.fullName.setMiddleName(middleName);
-//        this.fullName.setLastname(lastName);
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-//        phoneNumbers.add(new PhoneNumber(phoneNumber, phoneType));
-        this.phoneNumber = phoneNumber;
-        this.phoneType = phoneType;
+    public Contact(Map<String, String> nameMap, Map<String, String> addressMap, List<PhoneNumber> phoneList, String email){
+        this.name = nameMap;
+        this.address = addressMap;
+        this.phone = phoneList;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-//        return this.fullName.getFirstName();
-        return this.firstName;
+    public Long getId() {
+        return id;
     }
 
-    public void setFirstName(String firstName) {
-//        this.fullName.setFirstName(firstName);
-        this.firstName = firstName;
+    public Map<String, String> getName() {
+        return name;
     }
 
-    public String getMiddleName() {
-//        return this.fullName.getMiddleName();
-        return middleName;
+    public void setName(Map<String, String> name) {
+        this.name = name;
     }
 
-    public void setMiddleName(String middleName) {
-//        this.fullName.setMiddleName(middleName);
-        this.middleName = middleName;
+    public Map<String, String> getAddress() {
+        return address;
     }
 
-    public String getLastName() {
-//        return this.fullName.getLastname();
-        return lastName;
+    public void setAddress(Map<String, String> address) {
+        this.address = address;
     }
 
-    public void setLastName(String lastName) {
-//        this.fullName.setLastname(lastName);
-        this.lastName = lastName;
+    public List<PhoneNumber> getPhone() {
+        return phone;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-//    public ArrayList<PhoneNumber> getPhoneNumbers(){
-//        return this.phoneNumbers;
-//    }
-
-//    public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers){
-//        this.phoneNumbers = phoneNumbers;
-//    }
-
-    public String getPhoneNumber(){
-        return this.phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getPhoneType(){
-        return this.phoneType;
-    }
-
-    public void setPhoneType(String phoneType){
-        this.phoneType = phoneType;
+    public void setPhone(List<PhoneNumber> phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -144,5 +68,4 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

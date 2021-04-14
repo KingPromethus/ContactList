@@ -1,33 +1,41 @@
 package ContactList;
 
-public class PhoneNumber {
-    public String phoneNumber;
-    public String phoneType;
+import javax.persistence.*;
 
-    public PhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        this.phoneType = "home";
-    }
+@Entity
+public class PhoneNumber {
+    public @Id @GeneratedValue long id;
+    public String number;
+    public String type;
+    @ManyToOne
+    private Contact contact;
 
     public PhoneNumber(String phoneNumber, String phoneType) {
-        this.phoneNumber = phoneNumber;
-        this.phoneType = phoneType;
+        this.number = phoneNumber;
+        this.type = phoneType;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public String getPhoneType() {
-        return phoneType;
+    public String getType() {
+        return type;
     }
 
-    public void setPhoneType(String phoneType) {
-        this.phoneType = phoneType;
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 }
