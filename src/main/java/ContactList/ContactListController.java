@@ -63,6 +63,7 @@ class ContactListController {
                 }
             }
         }
+        Collections.sort(homePhones);
         return homePhones;
     }
 }

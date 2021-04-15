@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.*;
@@ -58,6 +59,11 @@ public class Contact {
     }
 
     public void setPhone(List<PhoneNumber> phone) {
+       if(this.phone.size() > 0) {
+           for (int i = 0; i < this.phone.size(); i++) {
+               phone.get(i).setId(this.phone.get(i).getId());
+           }
+       }
         this.phone = phone;
     }
 
@@ -70,7 +76,7 @@ public class Contact {
     }
 }
 
-class ContactListVersion {
+class ContactListVersion implements Comparable<ContactListVersion>{
     private Map<String, String> name;
     private String number;
 
@@ -98,5 +104,14 @@ class ContactListVersion {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    @Override
+    public int compareTo(ContactListVersion clv){
+        int returned = this.getName().get("last").compareTo(clv.getName().get("last"));
+        if(returned == 0){
+            returned = this.getName().get("first").compareTo(clv.getName().get("first"));
+        }
+        return returned;
     }
 }
