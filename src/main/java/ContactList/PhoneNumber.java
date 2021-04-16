@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 @Entity(name = "PhoneNumber")
 public class PhoneNumber {
+    @ManyToOne
+    private Contact contact;
     private @Id @GeneratedValue @JsonIgnore long id;
     private String number;
     private String type;
@@ -31,13 +33,5 @@ public class PhoneNumber {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

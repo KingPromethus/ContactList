@@ -17,7 +17,8 @@ public class Contact {
     private Map<String, String> name;
     @ElementCollection
     private Map<String, String> address;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn()
     private List<PhoneNumber> phone;
     private String email;
 
@@ -28,14 +29,6 @@ public class Contact {
         this.address = addressMap;
         this.phone = phoneList;
         this.email = email;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Map<String, String> getName() {
@@ -59,11 +52,6 @@ public class Contact {
     }
 
     public void setPhone(List<PhoneNumber> phone) {
-       if(this.phone.size() > 0) {
-           for (int i = 0; i < this.phone.size(); i++) {
-               phone.get(i).setId(this.phone.get(i).getId());
-           }
-       }
         this.phone = phone;
     }
 
@@ -73,6 +61,14 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 
