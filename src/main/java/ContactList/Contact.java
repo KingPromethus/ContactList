@@ -12,13 +12,13 @@ import javax.persistence.*;
 
 @Entity(name = "Contact")
 public class Contact {
-    private @Id @GeneratedValue Long id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ElementCollection
     private Map<String, String> name;
     @ElementCollection
     private Map<String, String> address;
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn()
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PhoneNumber> phone;
     private String email;
 

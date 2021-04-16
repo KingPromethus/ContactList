@@ -1,14 +1,17 @@
 package ContactList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity(name = "PhoneNumber")
 public class PhoneNumber {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Contact contact;
-    private @Id @GeneratedValue @JsonIgnore long id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) @JsonIgnore
+    private UUID id;
     private String number;
     private String type;
 
