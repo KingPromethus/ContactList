@@ -1,6 +1,5 @@
 package ContactList;
 
-import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -25,12 +24,8 @@ class LoadDatabase {
         testAddress.put("city", "Richmond");
         testAddress.put("state", "Virginia");
         testAddress.put("zip", "23112");
-//        Map<String, String> testMap = new HashMap<String, String>();
-//        testMap.put("number", "7608779542");
-//        testMap.put("type", "mobile");
-        List<PhoneNumber> testPhone = new ArrayList<PhoneNumber>();
+        List<PhoneNumber> testPhone = new ArrayList<>();
         testPhone.add(new PhoneNumber("7608779542", "mobile"));
-//        testPhone.add(new PhoneNumber("700200300", "home"));
         return args -> {
             log.info("Preloading " + repository.save(new Contact(testName, testAddress, testPhone, "mb_charette@hotmail.com")));
         };

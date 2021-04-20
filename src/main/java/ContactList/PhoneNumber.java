@@ -1,9 +1,9 @@
 package ContactList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity(name = "PhoneNumber")
@@ -36,5 +36,15 @@ public class PhoneNumber {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(!(o instanceof PhoneNumber))
+            return false;
+        PhoneNumber phoneNumber = (PhoneNumber) o;
+        return Objects.equals(this.number, phoneNumber.number) && Objects.equals(this.type, phoneNumber.type);
     }
 }
