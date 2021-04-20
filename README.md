@@ -7,4 +7,4 @@ Build in terminal with the command: "gradlew build" will place a ContactList-0.0
 
 Testing:
 Tested via "gradlew test" command in terminal within IntelliJ and
-tested manually running JAR file in IntelliJ and hitting API endpoints with Postman
+tested manually running JAR file in IntelliJ and hitting API endpoints with Postman at http://localhost:8080/contacts
